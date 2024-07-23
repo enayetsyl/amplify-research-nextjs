@@ -15,7 +15,7 @@ const page = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(`${baseURL}/api/users/update`, user, {
+      const response = await axios.put(`${baseURL}/api/users/update`, user, {
         headers: {
           "Content-Type": "application/json",
         },
