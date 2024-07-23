@@ -1,22 +1,39 @@
-'use client';
-import Button from '@/components/shared/button';
-import Image from 'next/image';
-import React, { useState } from 'react';
-import { FaSave } from 'react-icons/fa';
-import userImage from '../../../../public/placeholder-image.png';
-import InputField from '@/components/shared/InputField';
+"use client";
+import Button from "@/components/shared/button";
+import Image from "next/image";
+import React, { useState } from "react";
+import { FaSave } from "react-icons/fa";
+import userImage from "../../../../public/placeholder-image.png";
+import InputField from "@/components/shared/InputField";
 
 const page = () => {
   const [user, setuser] = useState({
-    firstName: 'Johnny',
-    lastName: 'Silver',
-    email: 'johonnysilver2@gmail.com',
+    firstName: "Johnny",
+    lastName: "Silver",
+    email: "johonnysilver2@gmail.com",
   });
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.put(`${baseURL}/api/users/update`, user, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log("Success:", response.data);
+      alert("Project created successfully!");
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Failed to create project");
+    }
+  };
+
   return (
     <div className="my_profile_main_section_shadow bg-[#fafafb] bg-opacity-90 h-full min-h-screen flex flex-col justify-center items-center">
       {/* navabar */}
       <div className="bg-white h-20 w-full">
-        {' '}
+        {" "}
         <div className="px-10 flex justify-between items-center pt-3">
           {/* left div */}
           <div>
@@ -30,6 +47,7 @@ const page = () => {
               variant="secondary"
               icon={<FaSave />}
               className="rounded-xl w-[100px] text-center py-3 shadow-[0px_3px_6px_#2976a54d]"
+              onClick={handleSubmit}
             />
           </div>
         </div>
